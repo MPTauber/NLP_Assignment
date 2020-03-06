@@ -12,9 +12,6 @@ import nltk
 from nltk.corpus import stopwords
 from pathlib import Path
 
-#from wordcloud import WordCloud
-import imageio
-
 stops = stopwords.words("english")
 
 blob = TextBlob(Path("book of John text.txt").read_text())
@@ -34,6 +31,11 @@ top15 = sorted_items[:16]
 
 #######
 # Now make word cloud
+from wordcloud import WordCloud
+import imageio
+
+import matplotlib as plt
+
 wordcloud = wordcloud.generate(top15)
 mask_image = imageio.imread("mask_oval.png")
 wordcloud = WordCloud(colormap = "PuRd", masm=mask_image, background_color="white")
