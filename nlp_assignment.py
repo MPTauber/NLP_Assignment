@@ -31,11 +31,11 @@ from operator import itemgetter
 sorted_items = sorted(items_not_in_stops, key = itemgetter(1), reverse = True)
 
 top15 = sorted_items[:16]
-print(top15)
 
-"""
-wordcloud = wordcloud.generate(_________)
+#######
+# Now make word cloud
+wordcloud = wordcloud.generate(top15)
 mask_image = imageio.imread("mask_oval.png")
 wordcloud = WordCloud(colormap = "PuRd", masm=mask_image, background_color="white")
 wordcloud = wordcloud.to_file("BookOfJohnWordCloud.png")
-plt.imshow(wordcloud)"""
+plt.imshow(wordcloud)
