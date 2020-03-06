@@ -17,11 +17,21 @@ import imageio
 
 stops = stopwords.words("english")
 
-text = Path("book of John text.txt").read_text()
-blob = TextBlob(text)
+blob = TextBlob(Path("book of John text.txt").read_text())
 
-print([word for word in blob.words if word not in stops])
 
+items = blob.word_counts.items()
+items_not_in_stops = [item for item in items if item[0] not in stops]
+
+
+#######
+# Get the 15 most common words
+from operator import itemgetter
+
+sorted_items = sorted(items_not_in_stops, key = itemgetter(1), reverse = True)
+
+top15 = sorted_items[:16]
+print(top15)
 
 """
 wordcloud = wordcloud.generate(_________)
