@@ -15,30 +15,25 @@ from pathlib import Path
 stops = stopwords.words("english")
 
 blob = TextBlob(Path("book of John text.txt").read_text())
+nouns = blob.noun_phrases
 
+items = blob.word_counts.items() # list of tuples with every word plus their corresponding freuqency in the text
 
-items = blob.word_counts.items()
-items_not_in_stops = [item for item in items if item[0] not in stops]
-
+items_not_in_stops = [item for item in items if item[0] in nouns if item[0] not in stops]
 #######
 # Get the 15 most common words
 from operator import itemgetter
 
-sorted_items = sorted(items_not_in_stops, key = itemgetter(1), reverse = True)
+sorted_items = sorted(items_not_in_stops, key = itemgetter(1), reverse=True)  # the 1 stands for [1], so the second part of the object
+# reverse reverses sorted order and shows the highest numbers first. 
 
-top15_items = sorted_items[:16]
+top15 = dict(sorted_items[:16])
+print(top15)
 
-
-
-top15_list = [(x[0] + " ") * x[1] for x in top15_items]
 
 ### Make list into string for wordcloud
-top15_str = "" 
-for x in top15_list:  
-    top15_str += x
 
-print(top15_str)
-'''
+
 #######
 # Now make word cloud
 from wordcloud import WordCloud
@@ -48,8 +43,8 @@ import matplotlib as plt
 
 mask_image = imageio.imread("mask_oval.png")
 wordcloud = WordCloud(colormap = "PuRd", mask=mask_image, background_color="black")
-wordcloud = wordcloud.generate(top15_str)
+wordcloud = wordcloud.fit_words(top15)
 
 wordcloud = wordcloud.to_file("BookOfJohnWordCloud.png")
 
-print("done")'''
+print("done")
