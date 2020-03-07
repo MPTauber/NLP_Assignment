@@ -37,6 +37,8 @@ top15_str = ""
 for x in top15_list:  
     top15_str += x
 
+print(top15_str)
+'''
 #######
 # Now make word cloud
 from wordcloud import WordCloud
@@ -45,7 +47,9 @@ import imageio
 import matplotlib as plt
 
 mask_image = imageio.imread("mask_oval.png")
-wordcloud = WordCloud(colormap = "PuRd", mask=mask_image, background_color="white")
+wordcloud = WordCloud(colormap = "PuRd", mask=mask_image, background_color="black")
 wordcloud = wordcloud.generate(top15_str)
 
 wordcloud = wordcloud.to_file("BookOfJohnWordCloud.png")
+
+print("done")'''
